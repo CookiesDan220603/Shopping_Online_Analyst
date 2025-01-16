@@ -2,10 +2,10 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
-st.write(os.path.exists('./model_trend.pkl'))  # Should return True if the file exists
+st.write(os.path.exists('model_trend.pkl'))  # Should return True if the file exists
 
 
-model_trend = joblib.load('./model_trend.pkl')
+model_trend = joblib.load('model_trend.pkl')
 scaler = joblib.load('./scaler/scaler.pkl')
 
 label_encoders = {
