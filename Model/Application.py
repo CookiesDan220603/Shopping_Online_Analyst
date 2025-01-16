@@ -2,18 +2,18 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
-st.write(os.path.exists('model_trend.pkl'))  # Should return True if the file exists
+st.write(os.path.exists('./Model/model_trend.pkl'))  # Should return True if the file exists
 
 
-model_trend = joblib.load('model_trend.pkl')
-scaler = joblib.load('./scaler/scaler.pkl')
+model_trend = joblib.load('./Model/model_trend.pkl')
+scaler = joblib.load('./Model/scaler/scaler.pkl')
 
 label_encoders = {
-    'Gender': joblib.load('./encoder/label_encoder_gender.pkl'),
-    'Category': joblib.load('./encoder/label_encoder_category.pkl'),
-    'State': joblib.load('./encoder/label_encoder_state.pkl'),
-    'Season': joblib.load('./encoder/label_encoder_season.pkl'),
-    'Item Purchased': joblib.load('./encoder/label_encoder_item purchased.pkl')
+    'Gender': joblib.load('./Model/encoder/label_encoder_gender.pkl'),
+    'Category': joblib.load('./Model/encoder/label_encoder_category.pkl'),
+    'State': joblib.load('./Model/encoder/label_encoder_state.pkl'),
+    'Season': joblib.load('./Model/encoder/label_encoder_season.pkl'),
+    'Item Purchased': joblib.load('./Model/encoder/label_encoder_item purchased.pkl')
 }
 def predict_trend_item(age, gender, category, state, season):
     new_customer_data = pd.DataFrame({
