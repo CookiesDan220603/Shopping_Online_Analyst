@@ -1,6 +1,7 @@
 # Shopping Online Analysis (10/2024 - 11/2024)
 ## Now you can directly use my model on Streamlit
 https://predictitem.streamlit.app/
+![Logo](./image/streamlit.png)
 ## Project Overview
 
 In this project, I utilize Python for data cleaning and organization, alongside Tableau for visual analysis. The aim is to uncover relationships within the data and identify optimal products for targeted marketing campaigns.
