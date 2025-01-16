@@ -1,9 +1,11 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
+print(os.path.exists('./model_trend.pkl'))  # Should return True if the file exists
 
 
-model_trend = joblib.load('model_trend.pkl')
+model_trend = joblib.load('./model_trend.pkl')
 scaler = joblib.load('./scaler/scaler.pkl')
 
 label_encoders = {
@@ -13,12 +15,12 @@ label_encoders = {
     'Season': joblib.load('./encoder/label_encoder_season.pkl'),
     'Item Purchased': joblib.load('./encoder/label_encoder_item purchased.pkl')
 }
-def predict_trend_item(age, gender, category, location, season):
+def predict_trend_item(age, gender, category, state, season):
     new_customer_data = pd.DataFrame({
         'Age': [age],
         'Gender': [gender],
         'Category': [category],
-        'State': [location],
+        'State': [state],
         'Season': [season]
     })
     
@@ -41,10 +43,10 @@ st.title('Product Trend Prediction')
 age = st.slider('Age', min_value=18, max_value=70, value=25)
 gender = st.selectbox('Gender', options=label_encoders['Gender'].classes_)
 category = st.selectbox('Category', options=label_encoders['Category'].classes_)
-location = st.selectbox('State', options=label_encoders['Location'].classes_)
+state = st.selectbox('State', options=label_encoders['State'].classes_)
 season = st.selectbox('Season', options=label_encoders['Season'].classes_)
 
 if st.button('Predict'):
-    predicted_item = predict_trend_item(age, gender, category, location, season)
+    predicted_item = predict_trend_item(age, gender, category, state, season)
     if predicted_item:
         st.success(f'Predicted Product for the Customer: {predicted_item}')
