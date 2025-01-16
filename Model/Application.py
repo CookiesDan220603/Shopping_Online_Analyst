@@ -2,18 +2,25 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
-st.write(os.path.exists('./Model/model_trend.pkl'))  # Should return True if the file exists
+model_trend_path = 'model_trend.pkl' if os.path.exists('model_trend.pkl') else './Model/model_trend.pkl'
+scaler_path = 'scaler/scaler.pkl' if os.path.exists('scaler/scaler.pkl') else './Model/scaler/scaler.pkl'
+def load_encoder(encoder_name):
+    encoder_path = f'encoder/{encoder_name}.pkl' if os.path.exists(f'encoder/{encoder_name}.pkl') else f'./Model/encoder/{encoder_name}.pkl'
+    return joblib.load(encoder_path)
 
 
-model_trend = joblib.load('./Model/model_trend.pkl')
-scaler = joblib.load('./Model/scaler/scaler.pkl')
+model_trend = joblib.load(model_trend_path)
+scaler = joblib.load(scaler_path)
 
+
+
+# Load the label encoders
 label_encoders = {
-    'Gender': joblib.load('./Model/encoder/label_encoder_gender.pkl'),
-    'Category': joblib.load('./Model/encoder/label_encoder_category.pkl'),
-    'State': joblib.load('./Model/encoder/label_encoder_state.pkl'),
-    'Season': joblib.load('./Model/encoder/label_encoder_season.pkl'),
-    'Item Purchased': joblib.load('./Model/encoder/label_encoder_item purchased.pkl')
+    'Gender': load_encoder('label_encoder_gender'),
+    'Category': load_encoder('label_encoder_category'),
+    'State': load_encoder('label_encoder_state'),
+    'Season': load_encoder('label_encoder_season'),
+    'Item Purchased': load_encoder('label_encoder_item purchased')
 }
 def predict_trend_item(age, gender, category, state, season):
     new_customer_data = pd.DataFrame({
