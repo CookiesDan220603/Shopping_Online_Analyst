@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import joblib
 import os
-print(os.path.exists('./model_trend.pkl'))  # Should return True if the file exists
+st.write(os.path.exists('./model_trend.pkl'))  # Should return True if the file exists
 
 
 model_trend = joblib.load('./model_trend.pkl')
